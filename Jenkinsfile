@@ -2,10 +2,10 @@
 @Library('shared-library')_
 pipeline {
      environment {
-       IMAGE_NAME = "alpinehelloworld"
+       IMAGE_NAME = "fermeSuccess"
        IMAGE_TAG = "latest"
-       STAGING = "eazymarubo-staging"
-       PRODUCTION = "eazymarubo-production"
+       STAGING = "mayaferme-staging"
+       PRODUCTION = "mayaferme-production"
      }
      agent none
      stages {
@@ -13,7 +13,7 @@ pipeline {
              agent any
              steps {
                 script {
-                  sh 'docker build -t eazymarubo/$IMAGE_NAME:$IMAGE_TAG .'
+                  sh 'docker build -t sahibmartial/$IMAGE_NAME:$IMAGE_TAG .'
                 }
              }
         }
@@ -22,7 +22,7 @@ pipeline {
             steps {
                script {
                  sh '''
-                    docker run --name $IMAGE_NAME -d -p 80:5000 -e PORT=5000 eazymarubo/$IMAGE_NAME:$IMAGE_TAG
+                    docker run --name $IMAGE_NAME -d -p 8089:80 sahibmartial/$IMAGE_NAME:$IMAGE_TAG
                     sleep 5
                  '''
                }
@@ -33,7 +33,7 @@ pipeline {
            steps {
               script {
                 sh '''
-                    curl http://localhost: | grep -q "Ferme MAYA"
+                    curl http://localhost:8089 | grep -q "Ferme MAYA"
                 '''
               }
            }
