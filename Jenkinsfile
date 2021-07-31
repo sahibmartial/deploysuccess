@@ -2,7 +2,7 @@
 @Library('shared-library')_
 pipeline {
      environment {
-       IMAGE_NAME = "fermeSuccess"
+       IMAGE_NAME = "fermesuccess"
        IMAGE_TAG = "latest"
        STAGING = "mayaferme-staging"
        PRODUCTION = "mayaferme-production"
