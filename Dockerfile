@@ -31,8 +31,10 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+
+
 # Create system user to run Composer and Artisan Commands
-RUN useradd -G www-data,root -o -u -d /home/$user $user
+RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
@@ -45,4 +47,6 @@ COPY --chown=$user:$user . /var/www
 # Change current user to www
 
 USER $user
+
+
 

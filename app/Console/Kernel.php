@@ -28,9 +28,11 @@ class Kernel extends ConsoleKernel
         $schedule->command('inspire')->hourly();
         $schedule->command('alertvaccin:daily')->daily();
         $schedule->command('quote:daily')->daily();
+       // $schedule->exec('./fermedeploy.sh')->everyFiveMinutes();
     }
 
     /**
+     * 
      * Register the commands for the application.
      *
      * @return void

@@ -145,7 +145,7 @@ class PoussinController extends Controller {
 				  $campagne=Str::lower($request->campagne);
 				   $traitement="Arrivée des poussins";
 				   $obs="Arrivé poussins dans la ferme ";
-
+               
 				  Vaccin::create([
 					'campagne_id'=>$campagne_id,
 					'campagne'=>Str::lower($request->campagne),
@@ -153,8 +153,7 @@ class PoussinController extends Controller {
 					'intitulevaccin'=>$traitement,
 					'obs'=>$obs   
 				   ]);
-
-
+                
 
 				  $content="Nous sommes le ".$now.", jour 1 de la ".$campagne."<br> <br>";
 				  $content.="A) <b> Preventions sanitaire </b>:<br/>";
@@ -169,7 +168,9 @@ class PoussinController extends Controller {
 				 // echo date('d-m-Y', strtotime('+15 days'));
                 //  echo date($now, strtotime('+40 days'));
 
-                   $date_enter_production=date($now, strtotime('+40 days'));
+                   $date_enter_production=date("d-m-Y",strtotime($now.'+40 days'));
+
+				  // dd($date_enter_production);
 				  //envoi email debut vente
 				  $contentVente="<br> Le ".$date_enter_production.", la ".$campagne." rentre en production.<br> <br>";
                   $contentVente.="Merci de faire le necessaire en contactant tous nos clients. <br>";

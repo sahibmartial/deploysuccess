@@ -2,27 +2,34 @@
 @Library('shared-library')_
 pipeline {
      environment {
-       IMAGE_NAME = "fermesuccess"
-       IMAGE_TAG = "latest"
+       IMAGE_NAME = "ferme-app"
+       IMAGE_TAG = "v4"
        STAGING = "mayaferme-staging"
        PRODUCTION = "mayaferme-production"
      }
      agent none
      stages {
+          
          stage('Build image') {
              agent any
              steps {
                 script {
-                  sh 'docker build -t sahibmartial/$IMAGE_NAME:$IMAGE_TAG .'
+                  sh '''
+                  git clone https://github.com/sahibmartial/deploysuccess.git/
+                  docker cp /home/lenovo-sahib/projects/deployferme/.env: /deploysuccess
+                  cd deploysuccess
+                  docker-compose build 
+                  '''
                 }
              }
         }
+
         stage('Run container based on builded image') {
             agent any
             steps {
                script {
                  sh '''
-                    docker run --name $IMAGE_NAME -d -p 8089:80 sahibmartial/$IMAGE_NAME:$IMAGE_TAG
+                    kool run setup
                     sleep 5
                  '''
                }

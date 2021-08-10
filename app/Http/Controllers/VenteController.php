@@ -429,24 +429,25 @@ public function calculRecapvente($request)
     $vente= new Vente();
     $resultsVentes=$vente->ventes_campagne_en_cours();
     
-    if ($resultsVentes->isNotEmpty()) {
-      // dd($resultsVentes);
-        if (isset($resultsVentes[0]['campagne'])) {
-            $campagne=$resultsVentes[0]['campagne'];
-            foreach ($resultsVentes as $key => $value) {
-               // dd($value);
-                $resultqte[]=$value['quantite'];
-                $resultdate[]=$value['date'];
-               }           
-
-        }else{
-
-            return 'Pas de vente Disponible  ';
-        }  
+    if ( $resultsVentes !=='Campagne introuvable') {
+        // dd($resultsVentes);
+          if (isset($resultsVentes[0]['campagne'])) {
+              $campagne=$resultsVentes[0]['campagne'];
+              foreach ($resultsVentes as $key => $value) {
+                 // dd($value);
+                  $resultqte[]=$value['quantite'];
+                  $resultdate[]=$value['date'];
+                 }           
+  
+          }else{
+              return 'Aucune campagne en cours ! ';
+          }  
+       
+      }else{
+          return 'Aucune campagne en cours !';
+      }
      
-    }
-   
-    return array('campagne'=> $campagne,'qte'=>$resultqte,'dateVente'=> $resultdate);
+      return array('campagne'=> $campagne,'qte'=>$resultqte,'dateVente'=> $resultdate);
   }
   /**
    * get ventes impayés

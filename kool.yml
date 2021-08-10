@@ -1,8 +1,11 @@
 scripts:
   artisan: kool exec app php artisan
   composer: kool exec app composer
-  mysql: kool exec -e MYSQL_PWD=$DB_PASSWORD database mysql -u $DB_USERNAME $DB_DATABASE
+  mysql: kool exec -e MYSQL_PWD=$DB_PASSWORD db mysql -u $DB_USERNAME $DB_DATABASE 
   cron: kool exec app composer require dragonmantank/cron-expression ^2.3.1
+  mysqlupdate:
+  - kool exec app php artisan migrate
+  - kool exec -e MYSQL_PWD=$DB_PASSWORD db mysql -u $DB_USERNAME $DB_DATABASE < dbexport.sql
   node-setup:
   - kool run npm install
   - kool run npm run dev
@@ -20,3 +23,4 @@ scripts:
   - kool run artisan key:generate
   - kool run node-setup
   - kool run cron
+  - kool run mysqlupdate
